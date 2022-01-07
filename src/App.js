@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./images/logo/logo.svg";
 import "./index.css";
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
       <div className="page">
         <div className="page__wrapper">
           <header className="header">
-            <img className="header__logo" alt="Around the U.S logo" />
+            <img className="header__logo" src={logo} alt="Around the U.S logo" />
           </header>
 
           <main className="content">
@@ -51,8 +51,8 @@ function App() {
                     name="name"
                     className="popup__input popup__input_type_name"
                     placeholder="Name"
-                    minlength="2"
-                    maxlength="40"
+                    minLength="2"
+                    maxLength="40"
                     required
                   />
                   <span
@@ -65,8 +65,8 @@ function App() {
                     name="description"
                     className="popup__input popup__input_type_description"
                     placeholder="About me"
-                    minlength="2"
-                    maxlength="200"
+                    minLength="2"
+                    maxLength="200"
                     required
                   />
                   <span
@@ -98,9 +98,9 @@ function App() {
                     name="name"
                     className="popup__input popup__input_type_card-name"
                     placeholder="Title"
-                    minlength="2"
-                    maxlength="30"
-                    autocomplete="off"
+                    minLength="2"
+                    maxLength="30"
+                    autoComplete="off"
                     required
                   />
                   <span

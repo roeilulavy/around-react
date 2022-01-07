@@ -3,6 +3,11 @@
     min-width: 126px;
     width: calc(100% / 3);
     margin: 0 0 41px 0;
+    padding: 0;
+    /* background-image: url('../../../images/logo/logo.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; */
 }
 
 @media screen and (max-width: 450px){
