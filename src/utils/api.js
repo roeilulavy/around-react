@@ -86,9 +86,7 @@ export default class Api{
   }
 }
 
-const api = new Api({
+export const api = new Api({
   baseUrl: 'https://around.nomoreparties.co/v1/group-12',
   token: '03197c45-af19-4b1d-a978-69b8bedd3378'
 })
-
-export {api};

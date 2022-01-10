@@ -5,7 +5,6 @@ function Card(props){
   }
 
   return(
-    <template id="element-template">
         <article className="elements__element">
           <img className="elements__image" src={props.link} alt={props.name} onClick={handleClick} />
           <button
@@ -21,7 +20,6 @@ function Card(props){
             </div>
           </div>
         </article>
-      </template>
   );
 }
 

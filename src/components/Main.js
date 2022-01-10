@@ -1,7 +1,8 @@
 import Card from "./Card";
-import {api} from "../utils/Api";
+import {api} from "../utils/api";
 import defaultProfilePic from "../images/profile/profile.jpg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import React from "react";
 
 
 function Main(props) {
@@ -11,10 +12,10 @@ function Main(props) {
   const [userDescription, setUserDescription] = useState('Developer')
   const [cards, setCards] = useState([])
 
-  useEffect(() => {
+  React.useEffect(() => {
     try {
       async function fetchData() {
-        const [userInfo, cardsData] = await Promise.all([
+        const [cardsData, userInfo] = await Promise.all([
           api.getInitialCards(),
           api.getUserData()
         ])
@@ -61,9 +62,9 @@ function Main(props) {
               <Card
               card = {card}
               onCardClick = {props.onCardClick}
-              key = {card.id}
-              link = {card.link}
+              key = {card._id}
               title = {card.name}
+              link = {card.link}
               likes = {`${card.likes.length}`}
               />
             )

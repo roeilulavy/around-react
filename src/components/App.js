@@ -143,8 +143,6 @@ function App() {
           </PopupWithForm>
 
           <Footer />
-
-          <ImagePopup />
         </div>
       </div>
   );
