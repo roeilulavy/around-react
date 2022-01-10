@@ -22,32 +22,23 @@ function App() {
   }
 
   function handleEditAvatarClick() {
-
     setStateEditAvatarPopup(true)
-
   }
 
   function handleEditProfileClick() {
-
     setStateProfilePopup(true)
-
   }
 
   function handleAddPlaceClick() {
-
     setStateAddPlacePopup(true)
-
   } 
 
   function handleCardClick(props) {
-
     setSelectedCard(props)
     setStateImagePopup(true)
-
   }
 
   return (
-    <div className="App">
       <div className="page">
         <div className="page__wrapper">
           <Header />
@@ -148,35 +139,14 @@ function App() {
             name="delete-card"
             title="Are you sure?"
             onClose={closeAllPopups}
-            buttonText="Yes" >
-
+            buttonText="Yes">
           </PopupWithForm>
 
           <Footer />
 
-
           <ImagePopup />
         </div>
       </div>
-
-      <template id="element-template">
-        <article className="elements__element">
-          <img className="elements__image" alt="" />
-          <button
-            type="button"
-            className="elements__delete-button"
-            name="delete-button"
-          ></button>
-          <div className="elements__holder">
-            <h2 className="elements__caption"></h2>
-            <div className="elements__like-wrapper">
-              <button type="button" className="elements__like-button"></button>
-              <p className="elements__like-counter">0</p>
-            </div>
-          </div>
-        </article>
-      </template>
-    </div>
   );
 }
 
