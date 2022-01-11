@@ -9,13 +9,13 @@ import { useState } from 'react';
 function App() {
 
   const [isEditAvatarPopupOpen, setStateEditAvatarPopup] = useState(false)
-  const [isEditProfilePopupOpen, setStateProfilePopup] = useState(false)
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setStateAddPlacePopup] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
   const [isImagePopupOpen, setStateImagePopup] = useState(false)
 
   function closeAllPopups() {
-    setStateProfilePopup(false)
+    setIsEditProfilePopupOpen(false)
     setStateAddPlacePopup(false)
     setStateEditAvatarPopup(false)
     setStateImagePopup(false)
@@ -26,7 +26,7 @@ function App() {
   }
 
   function handleEditProfileClick() {
-    setStateProfilePopup(true)
+    setIsEditProfilePopupOpen(true)
   }
 
   function handleAddPlaceClick() {
@@ -108,7 +108,7 @@ function App() {
             name="add-card"
             title="New Place"
             onClose={closeAllPopups}
-            buttonText="Save">
+            buttonText="Create">
 
             <input
               id="input_type_title"
