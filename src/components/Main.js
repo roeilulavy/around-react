@@ -5,29 +5,37 @@ import React from "react";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
 
-function Main(props) {
+function Main(props, onCardLike, onCardClick) {
 
   const currentUser = useContext(CurrentUserContext);
 
   const [cards, setCards] = useState([])
 
-  React.useEffect(() => {
-    try {
-      async function fetchData() {
-        const [cardsData] = await Promise.all([
-          api.getInitialCards()
-        ])
+  // React.useEffect(() => {
+  //   try {
+  //     async function fetchData() {
+  //       const [cardsData] = await Promise.all([
+  //         api.getInitialCards()
+  //       ])
 
-        if(cardsData) {
-          setCards(cardsData)
-        }
-      }
-      fetchData();
-    } catch(error) {
-      console.log('Error! ', error);
-      alert("Something went wrong..")
-    }
-  }, [])
+  //       if(cardsData) {
+  //         setCards(cardsData)
+  //       }
+  //     }
+  //     fetchData();
+  //   } catch(error) {
+  //     console.log('Error! ', error);
+  //     alert("Something went wrong..")
+  //   }
+  // }, [])
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+} 
 
   return (
     <main className="content">
@@ -53,11 +61,12 @@ function Main(props) {
             return(
               <Card
               card = {card}
-              onCardClick = {props.onCardClick}
               key = {card._id}
               title = {card.name}
               link = {card.link}
               likes = {`${card.likes.length}`}
+              onCardClick = {onCardClick}
+              onCardLike = {onCardLike}
               />
             )
           })
