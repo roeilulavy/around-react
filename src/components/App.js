@@ -1,5 +1,5 @@
 import Header from "./Header";
-import Main from "./Main";
+import { Main } from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
@@ -10,6 +10,8 @@ import { CurrentUserContext } from "../context/CurrentUserContext";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+
   const [isEditAvatarPopupOpen, setStateEditAvatarPopup] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setStateAddPlacePopup] = useState(false);
@@ -17,21 +19,54 @@ function App() {
   const [isImagePopupOpen, setStateImagePopup] = useState(false);
 
   React.useEffect(() => {
-    try {
-      async function fetchData() {
-        const userInfo = api.getUserData();
+    getUserData();
+    getCardsData();
+  }, []);
 
-        if (userInfo) {
-          setCurrentUser(userInfo);
-          console.log("userInfo Success! :" + userInfo);
-        }
+  async function getUserData() {
+    try {
+      const userInfo = await api.getUserData();
+
+      if (userInfo) {
+        setCurrentUser(userInfo);
       }
-      fetchData();
     } catch (error) {
       console.log("Error! ", error);
-      alert("Something went wrong..");
+      alert("Something went wrong getting user data..");
     }
-  }, []);
+  }
+
+  async function getCardsData() {
+    try {
+      const cardsData = await api.getInitialCards();
+
+      if (cardsData) {
+        setCards(cardsData);
+      }
+    } catch (error) {
+      console.log("Error! ", error);
+      alert("Something went wrong getting cards data..");
+    }
+  }
+
+  async function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    try {
+      const updatedCard = await api.changeLikeCardStatus(card._id, !isLiked);
+
+      if (updatedCard) {
+        setCards((cards) =>
+          cards.map((oldCard) =>
+            oldCard._id === card._id ? updatedCard : oldCard
+          )
+        );
+      }
+    } catch (error) {
+      console.log("Error! ", error);
+      alert("something went wrong with HandleLike..");
+    }
+  }
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -66,7 +101,9 @@ function App() {
             onEditAvatarClick={handleEditAvatarClick}
             onEditProfileClick={handleEditProfileClick}
             onAddPlaceClick={handleAddPlaceClick}
+            cards={cards}
             onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
           />
 
           <ImagePopup
