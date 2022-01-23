@@ -49,7 +49,7 @@ export default class Api {
     return this._checkResponse(response);
   }
 
-  async addCard(name, link) {
+  async addNewCard(name, link) {
     const response = await fetch(`${this._url}/cards`, {
       method: "POST",
       headers: {

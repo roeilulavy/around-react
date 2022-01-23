@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import "../index.css";
 import { api } from "../utils/api";
@@ -81,6 +82,20 @@ function App() {
     } catch (error) {
       console.log("Error! ", error);
       alert("something went wrong with handleCardDelete..");
+    }
+  }
+
+  async function handleAddPlaceSubmit(name, link) {
+    try {
+      const addNewCard = await api.addNewCard(name, link);
+
+      if (addNewCard) {
+        setCards([addNewCard, ...cards]);
+        closeAllPopups();
+      }
+    } catch (error) {
+      console.log("Error! ", error);
+      alert("something went wrong adding new place..");
     }
   }
 
@@ -169,43 +184,16 @@ function App() {
             onUpdateAvatar={handleUpadeAvatar}
           />
 
-          <PopupWithForm
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
-            name="add-card"
-            title="New Place"
             onClose={closeAllPopups}
-            buttonText="Create"
-          >
-            <input
-              id="input_type_title"
-              type="text"
-              name="name"
-              className="popup__input popup__input_type_card-name"
-              placeholder="Title"
-              minLength="1"
-              maxLength="30"
-              autoComplete="off"
-              required
-            />
-
-            <span id="input_type_title-error" className="popup__error"></span>
-
-            <input
-              id="input_type_url"
-              type="url"
-              name="link"
-              className="popup__input popup__input_type_card-link"
-              placeholder="Image link"
-              required
-            />
-
-            <span id="input_type_url-error" className="popup__error"></span>
-          </PopupWithForm>
+            onUpdateCard={handleAddPlaceSubmit}
+          />
 
           <PopupWithForm
+            onClose={closeAllPopups}
             name="delete-card"
             title="Are you sure?"
-            onClose={closeAllPopups}
             buttonText="Yes"
           ></PopupWithForm>
 
