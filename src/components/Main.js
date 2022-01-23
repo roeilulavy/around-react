@@ -7,7 +7,7 @@ import { CurrentUserContext } from "../context/CurrentUserContext";
 
 function Main(props) {
 
-  const currentUserContext = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   const [cards, setCards] = useState([])
 
@@ -34,14 +34,14 @@ function Main(props) {
 
       <section className="profile">
         <div className="profile__profile-holder">
-          <img className="profile__profile-image" src={currentUserContext.avatar} alt="User avatar" />
+          <img className="profile__profile-image" src={currentUser.avatar} alt="User avatar" />
           <button type="button" className="profile__edit-picture" onClick={props.onEditAvatarClick}></button>
         </div>
 
         <div className="profile__profile-info">
-          <h1 className="profile__title">{currentUserContext.name}</h1>
+          <h1 className="profile__title">{currentUser.name}</h1>
           <button type="button" className="profile__edit-button" onClick={props.onEditProfileClick}></button>
-          <p className="profile__description">{currentUserContext.about}</p>
+          <p className="profile__description">{currentUser.about}</p>
         </div>
         
         <button type="button" className="profile__add-button" onClick={props.onAddPlaceClick}></button>
