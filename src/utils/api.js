@@ -18,14 +18,14 @@ export default class Api {
     return this._checkResponse(response);
   }
 
-  async getUserData() {
+  async getUserInfo() {
     const response = await fetch(`${this._url}/users/me`, {
       headers: { authorization: this._token },
     });
     return this._checkResponse(response);
   }
 
-  async editUserData(name, about) {
+  async setUserInfo(name, about) {
     const response = await fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: {

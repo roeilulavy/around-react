@@ -1,7 +1,8 @@
 import Header from "./Header";
-import { Main } from "./Main";
+import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
+import EditProfilePopup from "./EditProfilePopup";
 import ImagePopup from "./ImagePopup";
 import "../index.css";
 import { api } from "../utils/api";
@@ -25,7 +26,7 @@ function App() {
 
   async function getUserData() {
     try {
-      const userInfo = await api.getUserData();
+      const userInfo = await api.getUserInfo();
 
       if (userInfo) {
         setCurrentUser(userInfo);
@@ -76,10 +77,23 @@ function App() {
       if (cardDelete) {
         setCards((cards) => cards.filter((c) => c._id !== deletedCard._id));
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log("Error! ", error);
       alert("something went wrong with handleCardDelete..");
+    }
+  }
+
+  async function handleUpdateUser({name, description}) {
+    try {
+      const updateUserInfo = await api.setUserInfo(name, description);
+
+      if (updateUserInfo) {
+        setCurrentUser(updateUserInfo);
+        closeAllPopups();
+      }
+    } catch (error) {
+      console.log("Error! ", error);
+      alert("something went wrong with Update user..");
     }
   }
 
@@ -128,6 +142,12 @@ function App() {
             onClose={closeAllPopups}
           />
 
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
+
           <PopupWithForm
             isOpen={isEditAvatarPopupOpen}
             name="edit-profile-picture"
@@ -146,43 +166,6 @@ function App() {
 
             <span
               id="input_type_url_photo-error"
-              className="popup__error"
-            ></span>
-          </PopupWithForm>
-
-          <PopupWithForm
-            isOpen={isEditProfilePopupOpen}
-            name="edit-profile"
-            title="Edit Profile"
-            onClose={closeAllPopups}
-            buttonText="Save"
-          >
-            <input
-              id="input_type_name"
-              type="text"
-              name="name"
-              className="popup__input popup__input_type_name"
-              placeholder="Name"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-
-            <span id="input_type_name-error" className="popup__error"></span>
-
-            <input
-              id="input_type_description"
-              type="text"
-              name="description"
-              className="popup__input popup__input_type_description"
-              placeholder="About me"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-
-            <span
-              id="input_type_description-error"
               className="popup__error"
             ></span>
           </PopupWithForm>

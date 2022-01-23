@@ -58,4 +58,4 @@ function Main({cards, onEditAvatarClick, onEditProfileClick, onAddPlaceClick, on
   );
 }
 
-export {Main};
+export default Main;
