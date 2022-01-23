@@ -18,6 +18,7 @@ function App() {
   const [isEditAvatarPopupOpen, setStateEditAvatarPopup] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setStateAddPlacePopup] = useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setStateImagePopup] = useState(false);
   const [isLoading, setisLoading] = useState(false);
@@ -139,6 +140,7 @@ function App() {
     setStateAddPlacePopup(false);
     setStateEditAvatarPopup(false);
     setStateImagePopup(false);
+    setIsDeleteCardPopupOpen(false);
   }
 
   function handleEditAvatarClick() {
@@ -199,6 +201,7 @@ function App() {
           />
 
           <PopupWithForm
+            isOpen={isDeleteCardPopupOpen}
             onClose={closeAllPopups}
             name="delete-card"
             title="Are you sure?"
