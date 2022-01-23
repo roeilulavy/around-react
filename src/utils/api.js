@@ -37,7 +37,7 @@ export default class Api {
     return this._checkResponse(response);
   }
 
-  async editUserPicture(avatar) {
+  async setUserAvatar(avatar) {
     const response = await fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: {

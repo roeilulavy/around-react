@@ -3,6 +3,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import ImagePopup from "./ImagePopup";
 import "../index.css";
 import { api } from "../utils/api";
@@ -83,7 +84,7 @@ function App() {
     }
   }
 
-  async function handleUpdateUser({name, description}) {
+  async function handleUpdateUser({ name, description }) {
     try {
       const updateUserInfo = await api.setUserInfo(name, description);
 
@@ -94,6 +95,20 @@ function App() {
     } catch (error) {
       console.log("Error! ", error);
       alert("something went wrong with Update user..");
+    }
+  }
+
+  async function handleUpadeAvatar({ avatar }) {
+    try {
+      const setUserAvatar = await api.setUserAvatar(avatar);
+
+      if (setUserAvatar) {
+        setCurrentUser({ ...currentUser, avatar });
+        closeAllPopups();
+      }
+    } catch (error) {
+      console.log("Error! ", error);
+      alert("something went wrong with Update user avatar..");
     }
   }
 
@@ -148,27 +163,11 @@ function App() {
             onUpdateUser={handleUpdateUser}
           />
 
-          <PopupWithForm
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
-            name="edit-profile-picture"
-            title="Change profile picture"
             onClose={closeAllPopups}
-            buttonText="Save"
-          >
-            <input
-              id="input_type_url_photo"
-              type="url"
-              name="avatar"
-              className="popup__input popup__input_type_avatar-link"
-              placeholder="Image link"
-              required
-            />
-
-            <span
-              id="input_type_url_photo-error"
-              className="popup__error"
-            ></span>
-          </PopupWithForm>
+            onUpdateAvatar={handleUpadeAvatar}
+          />
 
           <PopupWithForm
             isOpen={isAddPlacePopupOpen}
