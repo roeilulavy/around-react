@@ -1,30 +1,22 @@
 import Card from "./Card";
 import {api} from "../utils/api";
-import defaultProfilePic from "../images/profile/profile.jpg";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import React from "react";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 
 function Main(props) {
 
-  const [userAvatar, setUserAvatar] = useState(defaultProfilePic)
-  const [userName, setUserName] = useState('Roy')
-  const [userDescription, setUserDescription] = useState('Developer')
+  const currentUserContext = useContext(CurrentUserContext);
+
   const [cards, setCards] = useState([])
 
   React.useEffect(() => {
     try {
       async function fetchData() {
-        const [cardsData, userInfo] = await Promise.all([
-          api.getInitialCards(),
-          api.getUserData()
+        const [cardsData] = await Promise.all([
+          api.getInitialCards()
         ])
-
-        if(userInfo) {
-          setUserName(userInfo.name);
-          setUserDescription(userInfo.about);
-          setUserAvatar(userInfo.avatar)
-        }
 
         if(cardsData) {
           setCards(cardsData)
@@ -42,14 +34,14 @@ function Main(props) {
 
       <section className="profile">
         <div className="profile__profile-holder">
-          <img className="profile__profile-image" src={userAvatar} alt="User avatar" />
+          <img className="profile__profile-image" src={currentUserContext.avatar} alt="User avatar" />
           <button type="button" className="profile__edit-picture" onClick={props.onEditAvatarClick}></button>
         </div>
 
         <div className="profile__profile-info">
-          <h1 className="profile__title">{userName}</h1>
+          <h1 className="profile__title">{currentUserContext.name}</h1>
           <button type="button" className="profile__edit-button" onClick={props.onEditProfileClick}></button>
-          <p className="profile__description">{userDescription}</p>
+          <p className="profile__description">{currentUserContext.about}</p>
         </div>
         
         <button type="button" className="profile__add-button" onClick={props.onAddPlaceClick}></button>
