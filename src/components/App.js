@@ -68,6 +68,21 @@ function App() {
     }
   }
 
+  async function handleCardDelete(card) {
+    const deletedCard = card;
+
+    try {
+      const cardDelete = await api.deleteCard(card._id);
+      if (cardDelete) {
+        setCards((cards) => cards.filter((c) => c._id !== deletedCard._id));
+      }
+    }
+    catch (error) {
+      console.log("Error! ", error);
+      alert("something went wrong with handleCardDelete..");
+    }
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setStateAddPlacePopup(false);
@@ -104,6 +119,7 @@ function App() {
             cards={cards}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
 
           <ImagePopup

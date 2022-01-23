@@ -5,32 +5,6 @@ import { CurrentUserContext } from "../context/CurrentUserContext";
 function Main({cards, onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick, onCardLike, onCardDelete}) {
   const currentUser = useContext(CurrentUserContext);
 
-  // const [cards, setCards] = useState([]);
-
-  // React.useEffect(() => {
-  //   try {
-  //     async function fetchData() {
-  //       const [cardsData] = await Promise.all([api.getInitialCards()]);
-
-  //       if (cardsData) {
-  //         setCards(cardsData);
-  //       }
-  //     }
-  //     fetchData();
-  //   } catch (error) {
-  //     console.log("Error! ", error);
-  //     alert("Something went wrong..");
-  //   }
-  // }, []);
-
-  // function handleCardLike(card) {
-  //   const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-  //   api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-  //     setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-  //   });
-  // }
-
   return (
     <main className="content">
       <section className="profile">
