@@ -1,8 +1,9 @@
 import Card from "./Card";
+import Spinner from "./Spinner";
 import { useContext } from "react";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
-function Main({cards, onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick, onCardLike, onCardDelete}) {
+function Main({isLoading, cards, onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick, onCardLike, onCardDelete}) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -37,6 +38,10 @@ function Main({cards, onEditAvatarClick, onEditProfileClick, onAddPlaceClick, on
           onClick={onAddPlaceClick}
         ></button>
       </section>
+
+      <>
+      {isLoading ? <Spinner /> : null}
+      </>
 
       <section className="elements">
         {cards.map((card) => {

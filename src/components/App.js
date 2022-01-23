@@ -20,6 +20,7 @@ function App() {
   const [isAddPlacePopupOpen, setStateAddPlacePopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setStateImagePopup] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   React.useEffect(() => {
     getUserData();
@@ -27,6 +28,7 @@ function App() {
   }, []);
 
   async function getUserData() {
+    setisLoading(true);
     try {
       const userInfo = await api.getUserInfo();
 
@@ -36,10 +38,13 @@ function App() {
     } catch (error) {
       console.log("Error! ", error);
       alert("Something went wrong getting user data..");
+    } finally {
+      setisLoading(false);
     }
   }
 
   async function getCardsData() {
+    setisLoading(true);
     try {
       const cardsData = await api.getInitialCards();
 
@@ -49,6 +54,8 @@ function App() {
     } catch (error) {
       console.log("Error! ", error);
       alert("Something went wrong getting cards data..");
+    } finally {
+      setisLoading(false);
     }
   }
 
@@ -157,6 +164,7 @@ function App() {
         <div className="page__wrapper">
           <Header />
           <Main
+            isLoading={isLoading}
             onEditAvatarClick={handleEditAvatarClick}
             onEditProfileClick={handleEditProfileClick}
             onAddPlaceClick={handleAddPlaceClick}
