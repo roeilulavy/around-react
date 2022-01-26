@@ -9,7 +9,7 @@ import ImagePopup from "./ImagePopup";
 import "../index.css";
 import { api } from "../utils/api";
 import React, { useState } from "react";
-import { CurrentUserContext } from "../context/CurrentUserContext";
+import { CurrentUser } from "../contexts/CurrentUser";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -161,7 +161,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUser.Provider value={currentUser}>
       <div className="page">
         <div className="page__wrapper">
           <Header />
@@ -211,7 +211,7 @@ function App() {
           <Footer />
         </div>
       </div>
-    </CurrentUserContext.Provider>
+    </CurrentUser.Provider>
   );
 }
 
