@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CurrentUser } from "../contexts/CurrentUser";
+import CurrentUser from "../contexts/CurrentUserContext";
 
 function Card({
   card,

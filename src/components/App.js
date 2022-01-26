@@ -9,7 +9,7 @@ import ImagePopup from "./ImagePopup";
 import "../index.css";
 import { api } from "../utils/api";
 import React, { useState } from "react";
-import { CurrentUser } from "../contexts/CurrentUser";
+import CurrentUser from "../contexts/CurrentUserContext";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});

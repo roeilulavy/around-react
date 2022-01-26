@@ -1,7 +1,7 @@
 import Card from "./Card";
 import Spinner from "./Spinner";
 import { useContext } from "react";
-import { CurrentUser } from "../contexts/CurrentUser";
+import CurrentUser from "../contexts/CurrentUserContext";
 
 function Main({
   isLoading,
