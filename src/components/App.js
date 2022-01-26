@@ -7,7 +7,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import "../index.css";
-import { api } from "../utils/api";
+import api from "../utils/api";
 import React, { useState } from "react";
 import CurrentUser from "../contexts/CurrentUserContext";
 
