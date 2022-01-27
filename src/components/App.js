@@ -20,7 +20,7 @@ function App() {
   const [isAddPlacePopupOpen, setStateAddPlacePopup] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [isImagePopupOpen, setStateImagePopup] = useState(false);
+  const [isImagePopupOpen, setIsImagePopup] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
   React.useEffect(() => {
@@ -139,7 +139,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setStateAddPlacePopup(false);
     setStateEditAvatarPopup(false);
-    setStateImagePopup(false);
+    setIsImagePopup(false);
     setIsDeleteCardPopupOpen(false);
   }
 
@@ -157,7 +157,7 @@ function App() {
 
   function handleCardClick(props) {
     setSelectedCard(props);
-    setStateImagePopup(true);
+    setIsImagePopup(true);
   }
 
   return (
