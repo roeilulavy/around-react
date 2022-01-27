@@ -1,7 +1,7 @@
 import Card from "./Card";
 import Spinner from "./Spinner";
 import { useContext } from "react";
-import CurrentUser from "../contexts/CurrentUserContext";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Main({
   isLoading,
@@ -13,7 +13,7 @@ function Main({
   onCardLike,
   onCardDelete,
 }) {
-  const currentUser = useContext(CurrentUser);
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <main className="content">
@@ -58,7 +58,7 @@ function Main({
               key={card._id}
               title={card.name}
               link={card.link}
-              likes={`${card.likes.length}`}
+              likes={card.likes.length}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}

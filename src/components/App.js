@@ -9,59 +9,60 @@ import ImagePopup from "./ImagePopup";
 import "../index.css";
 import api from "../utils/api";
 import React, { useState } from "react";
-import CurrentUser from "../contexts/CurrentUserContext";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
-  const [isEditAvatarPopupOpen, setStateEditAvatarPopup] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopup] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setStateAddPlacePopup] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopup] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [isImagePopupOpen, setStateImagePopup] = useState(false);
-  const [isLoading, setisLoading] = useState(false);
 
   React.useEffect(() => {
+    async function getUserData() {
+      setIsLoading(true);
+      try {
+        const userInfo = await api.getUserInfo();
+
+        if (userInfo) {
+          setCurrentUser(userInfo);
+        }
+      } catch (error) {
+        console.log("Error! ", error);
+        alert("Something went wrong getting user data..");
+      } finally {
+        setIsLoading(false);
+      }
+    }
     getUserData();
+  }, []);
+
+  React.useEffect(() => {
+    async function getCardsData() {
+      setIsLoading(true);
+      try {
+        const cardsData = await api.getInitialCards();
+
+        if (cardsData) {
+          setCards(cardsData);
+        }
+      } catch (error) {
+        console.log("Error! ", error);
+        alert("Something went wrong getting cards data..");
+      } finally {
+        setIsLoading(false);
+      }
+    }
     getCardsData();
   }, []);
 
-  async function getUserData() {
-    setisLoading(true);
-    try {
-      const userInfo = await api.getUserInfo();
-
-      if (userInfo) {
-        setCurrentUser(userInfo);
-      }
-    } catch (error) {
-      console.log("Error! ", error);
-      alert("Something went wrong getting user data..");
-    } finally {
-      setisLoading(false);
-    }
-  }
-
-  async function getCardsData() {
-    setisLoading(true);
-    try {
-      const cardsData = await api.getInitialCards();
-
-      if (cardsData) {
-        setCards(cardsData);
-      }
-    } catch (error) {
-      console.log("Error! ", error);
-      alert("Something went wrong getting cards data..");
-    } finally {
-      setisLoading(false);
-    }
-  }
-
   async function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((item) => item._id === currentUser._id);
 
     try {
       const updatedCard = await api.changeLikeCardStatus(card._id, !isLiked);
@@ -80,12 +81,12 @@ function App() {
   }
 
   async function handleCardDelete(card) {
-    const deletedCard = card;
+    const cardId = card;
 
     try {
-      const cardDelete = await api.deleteCard(card._id);
-      if (cardDelete) {
-        setCards((cards) => cards.filter((c) => c._id !== deletedCard._id));
+      const deletedCard = await api.deleteCard(card._id);
+      if (deletedCard) {
+        setCards((cards) => cards.filter((item) => item._id !== cardId._id));
       }
     } catch (error) {
       console.log("Error! ", error);
@@ -95,10 +96,10 @@ function App() {
 
   async function handleAddPlaceSubmit(name, link) {
     try {
-      const addNewCard = await api.addNewCard(name, link);
+      const newCard = await api.addNewCard(name, link);
 
-      if (addNewCard) {
-        setCards([addNewCard, ...cards]);
+      if (newCard) {
+        setCards([newCard, ...cards]);
         closeAllPopups();
       }
     } catch (error) {
@@ -109,10 +110,10 @@ function App() {
 
   async function handleUpdateUser({ name, description }) {
     try {
-      const updateUserInfo = await api.setUserInfo(name, description);
+      const updatedUserInfo = await api.setUserInfo(name, description);
 
-      if (updateUserInfo) {
-        setCurrentUser(updateUserInfo);
+      if (updatedUserInfo) {
+        setCurrentUser(updatedUserInfo);
         closeAllPopups();
       }
     } catch (error) {
@@ -123,10 +124,10 @@ function App() {
 
   async function handleUpadeAvatar({ avatar }) {
     try {
-      const setUserAvatar = await api.setUserAvatar(avatar);
+      const newAvatar = await api.setUserAvatar(avatar);
 
-      if (setUserAvatar) {
-        setCurrentUser({ ...currentUser, avatar });
+      if (newAvatar) {
+        setCurrentUser({ ...currentUser, avatar: newAvatar.avatar });
         closeAllPopups();
       }
     } catch (error) {
@@ -137,14 +138,14 @@ function App() {
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
-    setStateAddPlacePopup(false);
-    setStateEditAvatarPopup(false);
-    setStateImagePopup(false);
+    setIsAddPlacePopup(false);
+    setIsEditAvatarPopup(false);
+    setIsImagePopup(false);
     setIsDeleteCardPopupOpen(false);
   }
 
   function handleEditAvatarClick() {
-    setStateEditAvatarPopup(true);
+    setIsEditAvatarPopup(true);
   }
 
   function handleEditProfileClick() {
@@ -152,16 +153,16 @@ function App() {
   }
 
   function handleAddPlaceClick() {
-    setStateAddPlacePopup(true);
+    setIsAddPlacePopup(true);
   }
 
-  function handleCardClick(props) {
-    setSelectedCard(props);
-    setStateImagePopup(true);
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    setIsImagePopup(true);
   }
 
   return (
-    <CurrentUser.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__wrapper">
           <Header />
@@ -211,7 +212,7 @@ function App() {
           <Footer />
         </div>
       </div>
-    </CurrentUser.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

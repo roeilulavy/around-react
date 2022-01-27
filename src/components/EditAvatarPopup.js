@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const ref = useRef();
@@ -28,12 +28,12 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
         name="avatar"
         className="popup__input popup__input_type_avatar-link"
         placeholder="Image link"
-        defaultValue={""}
+        defaultValue=""
         ref={ref}
         required
       />
 
-      <span id="input_type_url_photo-error" className="popup__error"></span>
+      <span id="input_type_url_photo-error" className="popup__error" />
     </PopupWithForm>
   );
 }
