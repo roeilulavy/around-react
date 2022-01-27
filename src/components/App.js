@@ -15,13 +15,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
-  const [isEditAvatarPopupOpen, setStateEditAvatarPopup] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopup] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setStateAddPlacePopup] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopup] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setIsImagePopup] = useState(false);
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   React.useEffect(() => {
     getUserData();
@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   async function getUserData() {
-    setisLoading(true);
+    setIsLoading(true);
     try {
       const userInfo = await api.getUserInfo();
 
@@ -40,12 +40,12 @@ function App() {
       console.log("Error! ", error);
       alert("Something went wrong getting user data..");
     } finally {
-      setisLoading(false);
+      setIsLoading(false);
     }
   }
 
   async function getCardsData() {
-    setisLoading(true);
+    setIsLoading(true);
     try {
       const cardsData = await api.getInitialCards();
 
@@ -56,7 +56,7 @@ function App() {
       console.log("Error! ", error);
       alert("Something went wrong getting cards data..");
     } finally {
-      setisLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -137,14 +137,14 @@ function App() {
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
-    setStateAddPlacePopup(false);
-    setStateEditAvatarPopup(false);
+    setIsAddPlacePopup(false);
+    setIsEditAvatarPopup(false);
     setIsImagePopup(false);
     setIsDeleteCardPopupOpen(false);
   }
 
   function handleEditAvatarClick() {
-    setStateEditAvatarPopup(true);
+    setIsEditAvatarPopup(true);
   }
 
   function handleEditProfileClick() {
@@ -152,7 +152,7 @@ function App() {
   }
 
   function handleAddPlaceClick() {
-    setStateAddPlacePopup(true);
+    setIsAddPlacePopup(true);
   }
 
   function handleCardClick(props) {
