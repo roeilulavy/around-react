@@ -96,10 +96,10 @@ function App() {
 
   async function handleAddPlaceSubmit(name, link) {
     try {
-      const addNewCard = await api.addNewCard(name, link);
+      const newCard = await api.addNewCard(name, link);
 
-      if (addNewCard) {
-        setCards([addNewCard, ...cards]);
+      if (newCard) {
+        setCards([newCard, ...cards]);
         closeAllPopups();
       }
     } catch (error) {
