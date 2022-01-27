@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onUpdateCard }) {
   const [cardName, setCardName] = useState("");
@@ -34,11 +34,11 @@ function AddPlacePopup({ isOpen, onClose, onUpdateCard }) {
         maxLength="30"
         autoComplete="off"
         required
-        value={cardName || ""}
+        value={cardName}
         onChange={(e) => setCardName(e.target.value)}
       />
 
-      <span id="input_type_title-error" className="popup__error"></span>
+      <span id="input_type_title-error" className="popup__error" />
 
       <input
         id="input_type_url"
@@ -47,11 +47,11 @@ function AddPlacePopup({ isOpen, onClose, onUpdateCard }) {
         className="popup__input popup__input_type_card-link"
         placeholder="Image link"
         required
-        value={cardLink || ""}
+        value={cardLink}
         onChange={(e) => setCardLink(e.target.value)}
       />
 
-      <span id="input_type_url-error" className="popup__error"></span>
+      <span id="input_type_url-error" className="popup__error" />
     </PopupWithForm>
   );
 }
