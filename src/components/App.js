@@ -28,7 +28,7 @@ function App() {
       setIsLoading(true);
       try {
         const userInfo = await api.getUserInfo();
-  
+
         if (userInfo) {
           setCurrentUser(userInfo);
         }
@@ -47,7 +47,7 @@ function App() {
       setIsLoading(true);
       try {
         const cardsData = await api.getInitialCards();
-  
+
         if (cardsData) {
           setCards(cardsData);
         }
@@ -62,7 +62,7 @@ function App() {
   }, []);
 
   async function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((item) => item._id === currentUser._id);
 
     try {
       const updatedCard = await api.changeLikeCardStatus(card._id, !isLiked);
