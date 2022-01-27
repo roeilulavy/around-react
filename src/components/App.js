@@ -156,8 +156,8 @@ function App() {
     setIsAddPlacePopup(true);
   }
 
-  function handleCardClick(props) {
-    setSelectedCard(props);
+  function handleCardClick(card) {
+    setSelectedCard(card);
     setIsImagePopup(true);
   }
 
