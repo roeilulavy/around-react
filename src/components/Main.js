@@ -58,7 +58,7 @@ function Main({
               key={card._id}
               title={card.name}
               link={card.link}
-              likes={`${card.likes.length}`}
+              likes={card.likes.length}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
