@@ -124,10 +124,10 @@ function App() {
 
   async function handleUpadeAvatar({ avatar }) {
     try {
-      const setUserAvatar = await api.setUserAvatar(avatar);
+      const newAvatar = await api.setUserAvatar(avatar);
 
-      if (setUserAvatar) {
-        setCurrentUser({ ...currentUser, avatar });
+      if (newAvatar) {
+        setCurrentUser({ ...currentUser, avatar: newAvatar.avatar });
         closeAllPopups();
       }
     } catch (error) {
