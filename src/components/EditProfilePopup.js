@@ -1,6 +1,6 @@
 import PopupWithForm from "./PopupWithForm";
 import CurrentUser from "../contexts/CurrentUserContext";
-import { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUser);
@@ -35,11 +35,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength="2"
         maxLength="40"
         required
-        value={name || ""}
+        value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
-      <span id="input_type_name-error" className="popup__error"></span>
+      <span id="input_type_name-error" className="popup__error"/>
 
       <input
         id="input_type_description"
@@ -50,11 +50,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength="2"
         maxLength="200"
         required
-        value={description || ""}
+        value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      <span id="input_type_description-error" className="popup__error"></span>
+      <span id="input_type_description-error" className="popup__error"/>
     </PopupWithForm>
   );
 }
