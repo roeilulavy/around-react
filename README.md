@@ -1,5 +1,5 @@
 # Link to the project:
-[https://roeilulavy.github.io/around-react/]
+https://roeilulavy.github.io/around-react/
 
 Have fun!
 
