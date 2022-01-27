@@ -24,41 +24,42 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
 
   React.useEffect(() => {
+    async function getUserData() {
+      setIsLoading(true);
+      try {
+        const userInfo = await api.getUserInfo();
+  
+        if (userInfo) {
+          setCurrentUser(userInfo);
+        }
+      } catch (error) {
+        console.log("Error! ", error);
+        alert("Something went wrong getting user data..");
+      } finally {
+        setIsLoading(false);
+      }
+    }
     getUserData();
-    getCardsData();
   }, []);
 
-  async function getUserData() {
-    setIsLoading(true);
-    try {
-      const userInfo = await api.getUserInfo();
-
-      if (userInfo) {
-        setCurrentUser(userInfo);
+  React.useEffect(() => {
+    async function getCardsData() {
+      setIsLoading(true);
+      try {
+        const cardsData = await api.getInitialCards();
+  
+        if (cardsData) {
+          setCards(cardsData);
+        }
+      } catch (error) {
+        console.log("Error! ", error);
+        alert("Something went wrong getting cards data..");
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log("Error! ", error);
-      alert("Something went wrong getting user data..");
-    } finally {
-      setIsLoading(false);
     }
-  }
-
-  async function getCardsData() {
-    setIsLoading(true);
-    try {
-      const cardsData = await api.getInitialCards();
-
-      if (cardsData) {
-        setCards(cardsData);
-      }
-    } catch (error) {
-      console.log("Error! ", error);
-      alert("Something went wrong getting cards data..");
-    } finally {
-      setIsLoading(false);
-    }
-  }
+    getCardsData();
+  }, []);
 
   async function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
