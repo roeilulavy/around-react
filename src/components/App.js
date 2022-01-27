@@ -110,10 +110,10 @@ function App() {
 
   async function handleUpdateUser({ name, description }) {
     try {
-      const updateUserInfo = await api.setUserInfo(name, description);
+      const updatedUserInfo = await api.setUserInfo(name, description);
 
-      if (updateUserInfo) {
-        setCurrentUser(updateUserInfo);
+      if (updatedUserInfo) {
+        setCurrentUser(updatedUserInfo);
         closeAllPopups();
       }
     } catch (error) {
