@@ -81,12 +81,12 @@ function App() {
   }
 
   async function handleCardDelete(card) {
-    const deletedCard = card;
+    const cardId = card;
 
     try {
-      const cardDelete = await api.deleteCard(card._id);
-      if (cardDelete) {
-        setCards((cards) => cards.filter((c) => c._id !== deletedCard._id));
+      const deletedCard = await api.deleteCard(card._id);
+      if (deletedCard) {
+        setCards((cards) => cards.filter((item) => item._id !== cardId._id));
       }
     } catch (error) {
       console.log("Error! ", error);
